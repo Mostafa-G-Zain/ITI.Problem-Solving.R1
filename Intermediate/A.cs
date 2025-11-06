@@ -1,0 +1,36 @@
+﻿/**
+ *  Author: ZainJr.
+ *  Created: 2025-11-04 11:01:10
+ **/
+global using static System.Console;
+
+namespace MyDraft
+{
+    class Program
+    {
+        public static int Main()
+        {
+#if DEBUG
+            SetIn(new StreamReader("#input.txt"));
+            SetOut(new StreamWriter("#output.txt") { AutoFlush = true });
+#endif
+            /*CF*/
+            int TC = 1;
+            TC = int.Parse(ReadLine());
+            List<KeyValuePair<int, string>> students = new();
+            while (TC-- > 0)
+            {
+                //var lst = ReadLine().Split().Select(int.Parse).ToList();
+                var lst = ReadLine().Split(' ').ToList();
+                string name = lst[0];
+                int grade = int.Parse(lst[1]);
+                students.Add(new(grade, name));
+            }
+            students.Sort((x, y) => (x.Key.CompareTo(y.Key) == 0) ? string.Compare(x.Value, y.Value) : x.Key.CompareTo(y.Key));
+            foreach (var it in students)
+                WriteLine($"{it.Value} {it.Key}");
+            return 0;
+        }
+    }
+}
+
