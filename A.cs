@@ -14,7 +14,6 @@ namespace MyDraft
             SetIn(new StreamReader("#input.txt"));
             SetOut(new StreamWriter("#output.txt") { AutoFlush = true });
 #endif
-
             /*CF*/
             int TC = 1;
             TC = int.Parse(ReadLine());
