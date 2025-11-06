@@ -1,1 +1,1 @@
-Training Camp Contest 2025-2026
+Training Camp Contests 2025-2026
