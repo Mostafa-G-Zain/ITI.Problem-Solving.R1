@@ -14,9 +14,6 @@ namespace MyDraft
             SetIn(new StreamReader("#input.txt"));
             SetOut(new StreamWriter("#output.txt") { AutoFlush = true });
 #endif
-            /*LC*/
-            //var input = ReadLine()?.Split(" ")?.ToArray();
-            //WriteLine(Solution.LongestCommonPrefix(input));
 
             /*CF*/
             int TC = 1;
