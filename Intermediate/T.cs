@@ -1,8 +1,9 @@
-/**
+﻿/**
  *  Author: ZainJr.
  *  Created: 2025-11-17
  **/
 global using static System.Console;
+using System.Text;
 
 namespace MyDraft
 {
@@ -20,27 +21,28 @@ namespace MyDraft
             //TC = int.Parse(ReadLine());
             while (TC-- > 0)
             {
-                var lst = ReadLine().Split().Select(int.Parse).ToList();
-                var n = lst[0];
+                //var lst = ReadLine().Split().Select(int.Parse).ToList();
+                var n = int.Parse(ReadLine());
+                StringBuilder sb = new StringBuilder();
                 char[] buffer = new char[n];
-                burn(0, n, buffer);
+                burn(0, n, buffer, sb);
+                WriteLine(sb.ToString());
             }
             return 0;
         }
-        public static void burn(int idx, int n, char[] buffer)
+        public static void burn(int idx, int n, char[] buffer, StringBuilder sb)
         {
             if (idx == n)
             {
-                WriteLine(new string(buffer));
+                sb.AppendLine(new string(buffer));
                 return;
             }
             foreach (var it in "PSU")
             {
                 buffer[idx] = it;
-                burn(idx + 1, n, buffer);
+                burn(idx + 1, n, buffer, sb);
             }
         }
-
     }
 }
 /*
