@@ -23,8 +23,8 @@ namespace MyDraft
             {
                 var lst = ReadLine().Split().Select(long.Parse).ToList();
                 long n = lst[0], k = lst[1];
-                WriteLine(((n & (1L << (int)k)) != 1) ? "YES" : "NO");  //isolate the bit
-                //WriteLine(((n >> (int)k) & 1) == 1 ? "YES" : "NO");     Mask
+                //WriteLine(((n & (1L << (int)k)) != 1) ? "YES" : "NO");  //Mask
+                WriteLine(((n >> (int)k) & 1) == 1 ? "YES" : "NO");       //isolate the bit
             }
             return 0;
         }
