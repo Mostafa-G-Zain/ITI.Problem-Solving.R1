@@ -1,9 +1,8 @@
-﻿/**
+/**
  *  Author: ZainJr.
  *  Created: 2025-11-17
  **/
 global using static System.Console;
-using System.Text;
 
 namespace MyDraft
 {
@@ -14,40 +13,61 @@ namespace MyDraft
 #if DEBUG
             SetIn(new StreamReader("#input.txt"));
             SetOut(new StreamWriter("#output.txt") { AutoFlush = true });
-#endif
+#endif 
 
             /*CF*/
             int TC = 1;
-            TC = int.Parse(ReadLine());
+            //TC = int.Parse(ReadLine());
             while (TC-- > 0)
             {
                 var input = ReadLine().Split().Select(int.Parse).ToList();
-                int n = input[0], q = input[1];
-                var lst = ReadLine().Split().Select(long.Parse).ToList();
-
-                lst.Sort((x, y) => (x.CompareTo(y) != 0) ? y.CompareTo(x) : x.CompareTo(y));
-
-                for (int i = 1; i < n; i++) lst[i] += lst[i - 1];
-
-                for (int i = 0; i < q; i++)
+                int n = input[0], s = input[1];
+                var lst = ReadLine().Split().Select(int.Parse).ToList();
+                int L = 0, R = n, ans = 0;
+                long totalCost = 0;
+                while (L <= R)
                 {
-                    int x = int.Parse(ReadLine());
-                    int target = lst.BinarySearch(x);
-                    int properPosition = (~target);
-                    if (target >= 0)
-                        WriteLine(target + 1);
-                    else
-                    {
-                        if (properPosition < lst.Count)
-                            WriteLine(properPosition + 1);
-                        else
-                            WriteLine(-1);
-                    }
-                }
+                    int mid_k = (L + R) >> 1;
+                    long currentCost = 0;
 
+                    if (valid(mid_k, n, s, lst, ref currentCost))
+                    {
+                        ans = mid_k;
+                        totalCost = currentCost;
+                        L = mid_k + 1;
+                    }
+                    else
+                        R = mid_k - 1;
+                }
+                WriteLine($"{ans} {totalCost}");
             }
             return 0;
         }
+        public static bool valid(int k, int n, int s, List<int> a, ref long costForK)
+        {
+            if (k == 0)
+            {
+                costForK = 0;
+                return true;
+            }
+            var b = new List<long>();
+            for (int i = 0; i < n; i++)
+                b.Add(a[i] + (long)(i + 1) * k);
+
+            b.Sort();
+
+            long currentCost = 0;
+            for (int i = 0; i < k; i++)
+            {
+                currentCost += b[i];
+                if (currentCost > s)
+                    return false;
+            }
+
+            costForK = currentCost;
+            return true;
+        }
+
     }
 }
 /*
